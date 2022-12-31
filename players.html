@@ -40,6 +40,7 @@
 
     <script>
               // Connect to the database
+              
 const mysql = require("mysql2");
 const connection = mysql.createConnection({
   host: "sql7.freemysqlhosting.net",
@@ -51,7 +52,7 @@ const connection = mysql.createConnection({
       async function getPlayers() {
   try {
     // Execute a SELECT statement
-    const [rows] = await connection.execute("SELECT * FROM players");
+    const [rows] = await connection.execute("SELECT * FROM sql7587471.players");
     return rows;
   } catch (error) {
     throw new Error(error.message);
