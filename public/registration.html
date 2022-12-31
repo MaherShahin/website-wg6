@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FAQ - Party Questions</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="stylesheets/style.css" />
+    <link rel="stylesheet" href="stylesheets/main.scss" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">WG6</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="faq.html">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="punishment.html">Punishment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="registration.html">Registration</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="residents.html">Residents</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="special_offer.html">Special Offer</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <h1 class="text-center mb-5">Registration Form</h1>
+      <form onsubmit="addPlayer(createUser())">
+        <div class="form-group my-2">
+          <label for="first-name">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="first-name"
+            placeholder="Enter your first name"
+            required="true"
+          />
+        </div>
+        <div class="form-group my-2">
+          <label for="last-name">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="last-name"
+            placeholder="Enter your last name"
+            required="true"
+          />
+        </div>
+        <div class="form-group my-2">
+          <label for="nickname">Nickname</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nickname"
+            placeholder="Enter your nickname"
+          />
+        </div>
+        <div class="form-group my-2">
+          <label for="phone-number">Phone Number </label>
+
+          Optional - if you are the kind of person that gets lost when they are
+          at parties (Isabell Kunkel)
+          <br />
+          This will send an automated whatsapp message 15 mins before start of
+          the party to remind you of the location and time. <br />
+          <span class="text-muted">
+            I am pretty sure I built this wrong - so I have no idea if it will
+            actually work right or no :(</span
+          >
+          <input
+            type="tel"
+            class="form-control"
+            id="phone-number"
+            placeholder="+49"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg my-2 custom-button">
+          Submit
+        </button>
+      </form>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    
+  </body>
+  <script>
+    //function called submit that calls the createUser function and submits the form to the server /add-player
+    function submit(e) {
+      e.preventDefault();
+      var user = createUser();
+      console.log(user);
+    }
+
+    function sendTextMessage() {
+      var phoneNumber = document.getElementById("phone-number").value;
+      var message = "Hello World";
+      window.open(url, "_blank").focus();
+    }
+
+    function createUser() {
+      var firstName = document.getElementById("first-name").value;
+      var lastName = document.getElementById("last-name").value;
+      var nickname = document.getElementById("nickname").value;
+      var phoneNumber = document.getElementById("phone-number").value;
+
+      var user = {
+        firstName: firstName,
+        lastName: lastName,
+        nickname: nickname,
+        phoneNumber: phoneNumber,
+      };
+
+      return user;
+
+    }
+
+    async function addPlayer(user) {
+      // post the user to /add-player
+      // if successful, redirect to /residents
+      // if not, show error message
+      const response = await fetch("/add-player", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      if (response.ok) {
+        window.location.href = "/residents";
+      } else {
+        alert("Error: " + response.status);
+      }
+    }
+  </script>
+</html>

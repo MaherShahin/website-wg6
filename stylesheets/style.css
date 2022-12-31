@@ -1,0 +1,99 @@
+.custom-button {
+    background-color: goldenrod;
+    color: black;
+    border: black 1px solid;
+  }
+  
+  .custom-button:hover {
+    background-color: gold;
+    /* grow in size  */
+    transform: scale(1.5);
+    /* make the button return to its orginal size after slowly*/
+    transition: transform 0.5s;
+  }
+
+  /* make the button return to its orginal size after */
+
+  
+.container{
+    /* make the background dark and the text a strong black
+
+     */
+    color: white;
+    /* make the text centered */
+    text-align: center;
+    /* make the text bigger */
+    font-size: 12px;
+    /* make the text bold */
+
+}
+
+body{
+    background-color: black;
+}
+
+ol {
+    color:gold;
+}
+
+/* make the navbar have a transparent background and white highlights */
+.navbar {
+    background-color: transparent;
+    border: goldenrod 1px solid;
+    margin-bottom: 5px;
+    margin-top: -25px;
+}
+
+/* make the navbar children have white text */
+.navbar a {
+    color: goldenrod;
+    /* make them change into white when clicking or hovering */
+    background-color: transparent;
+    /* make the text bigger */
+    font-size: 20px;
+
+}
+/* make the navbar children have white text when clicked on or hover*/
+.navbar a:hover {
+    color: goldenrod;
+    background-color: transparent;
+}
+
+
+/* make the burger in the navbar white */
+.navbar-toggler{
+    background-color: goldenrod;
+}
+
+/* make cards have a dark grey background and a golden text color also remove underline */
+.card {
+    background-color: black;
+    color: goldenrod;
+    text-decoration: none;
+}
+
+/* make the card title have a goldenrod color */
+.btn .btn-link .collapsed{
+    color: goldenrod;
+    text-decoration: none;
+}
+
+img {
+    width: 75px; /* adjust to desired width */
+    height: auto; /* preserve aspect ratio */
+    cursor: pointer; /* change cursor to pointer on hover */
+    /* image shape should be hearts */
+    border-radius: 50%;
+    /* make the image a circle */
+    border: goldenrod 1px solid;
+    /* make the image have a goldenrod border */
+    background-color: black;
+    /* make the image have a black background */
+    margin: 0 auto;
+
+    
+  }
+  
+
+
+  /* clicking on the image changes state, making it bigger and then clicking away changes state again */
