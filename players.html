@@ -3,26 +3,31 @@
   <head>
     <title>Players Table</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="stylesheets/style.css" />
     <link rel="stylesheet" href="stylesheets/main.scss" />
     <style>
-        table {
-            width: 100%;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(odd) {
-            background-color: goldenrod;
-        }
-
+      table {
+        width: 100%;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      tr:nth-child(odd) {
+        background-color: goldenrod;
+      }
     </style>
-</head>
+  </head>
   <body>
     <table id="players-table">
       <thead>
@@ -39,32 +44,33 @@
     </table>
 
     <script>
-              // Connect to the database
-              
-const mysql = require("mysql2");
-const connection = mysql.createConnection({
-  host: "sql7.freemysqlhosting.net",
-  user: "sql7587471",
-  password: "Pskf2GAHbr",
-  database: "sql7587471"
-});
+      // Connect to the database
+
+      const mysql = require("mysql2");
+      const connection = mysql.createConnection({
+        host: "sql7.freemysqlhosting.net",
+        user: "sql7587471",
+        password: "Pskf2GAHbr",
+        database: "sql7587471",
+      });
       // Make a GET request to the /players endpoint
       async function getPlayers() {
-  try {
-    // Execute a SELECT statement
-    const [rows] = await connection.execute("SELECT * FROM sql7587471.players");
-    return rows;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-}
-// use the getPlayers function to get the players
-getPlayers()
-  .then(players => {
-    // create a table row for each player
-    players.forEach(player => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
+        try {
+          // Execute a SELECT statement
+          const [rows] = await connection.execute(
+            "SELECT * FROM sql7587471.players"
+          );
+          return rows;
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      }
+      // use the getPlayers function to get the players
+      getPlayers().then((players) => {
+        // create a table row for each player
+        players.forEach((player) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
         <td>${player.id}</td>
         <td>${player.first_name}</td>
         <td>${player.last_name}</td>
@@ -72,9 +78,9 @@ getPlayers()
         <td>${player.phone_number}</td>
         <td>${player.team}</td>
       `;
-      document.querySelector("#players-table tbody").appendChild(row);
-    });
-  })
+          document.querySelector("#players-table tbody").appendChild(row);
+        });
+      });
     </script>
   </body>
 </html>

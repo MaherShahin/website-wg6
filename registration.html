@@ -116,24 +116,82 @@
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
-    
   </body>
   <script>
+    // function submitForm() {
+    // // Get the form data
+    // var firstName = document.getElementById("first-name").value;
+    // var lastName = document.getElementById("last-name").value;
+    // var nickname = document.getElementById("nickname").value;
+    // var phoneNumber = document.getElementById("phone-number").value;
 
+    // // Validate the form data
+    // if (!firstName || !lastName) {
+    // // Return an error if the first or last name is missing
+    // alert("First and last name are required");
+    // return;
+    // }
 
-  const formData = {
-      firstName: "John",
-      lastName: "Doe",
-      nickname: "JD",
-      phoneNumber: "1234567890"
-    };
+    // // Connect to the database
+    // var host = "sql7.freemysqlhosting.net";
+    // var user = "sql7587471";
+    // var password = "Pskf2GAHbr";
+    // var database = "sql7587471";
+
+    // var conn = mysqli_connect(host, user, password, database);
+
+    // // Insert the player into the database
+    // var sql = "INSERT INTO sql7587471.players (first_name, last_name, nickname, phone_number) VALUES ('" + firstName + "', '" + lastName + "', '" + nickname + "', '" + phoneNumber + "')";
+    // mysqli_query(conn, sql);
+
+    // // Close the connection
+    // mysqli_close(conn);
+
+    // // Redirect to the index page
+    // window.location.href = "index.html";
+    // }
+    function submitForm() {
+      // Get the form data
+      const firstName = document.getElementById("first-name").value;
+      const lastName = document.getElementById("last-name").value;
+      const nickname = document.getElementById("nickname").value;
+      const phoneNumber = document.getElementById("phone-number").value;
+
+      // Validate the form data
+      if (!firstName || !lastName) {
+        // Return an error if the first or last name is missing
+        alert("First and last name are required");
+        return;
+      }
+
+      // Submit the form data to registration.php
+      fetch("registration.php", {
+        method: "POST",
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          nickname: nickname,
+          phoneNumber: phoneNumber,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Log the response from the server
+          console.log(data);
+        })
+        .catch((error) => {
+          // Log any errors
+          console.error(error);
+        });
+    }
+
+    const formData = createUser();
     try {
       const playerId = addPlayer(formData);
       console.log(`Player added with id: ${playerId}`);
     } catch (error) {
       console.error(error.message);
     }
-
 
     //function called submit that calls the createUser function and submits the form to the server /add-player
     function submit(e) {
@@ -148,39 +206,125 @@
     //   window.open(url, "_blank").focus();
     // }
 
-    // function createUser() {
-    //   var firstName = document.getElementById("first-name").value;
-    //   var lastName = document.getElementById("last-name").value;
-    //   var nickname = document.getElementById("nickname").value;
-    //   var phoneNumber = document.getElementById("phone-number").value;
+    function createUser() {
+      //  connect to databse
+      //  insert player into database
+      //  close connection
 
-    //   var user = {
-    //     firstName: firstName,
-    //     lastName: lastName,
-    //     nickname: nickname,
-    //     phoneNumber: phoneNumber,
-    //   };
+      //connection
+      var host = "sql7.freemysqlhosting.net";
+      var user = "sql7587471";
+      var password = "Pskf2GAHbr";
+      var database = "sql7587471";
 
-    //   return user;
+      var conn = mysqli_connect(host, user, password, database);
 
-    // }
+      //insert player into database
+      var sql =
+        "INSERT INTO sql7587471.players (first_name, last_name, nickname, phone_number) VALUES ('" +
+        firstName +
+        "', '" +
+        lastName +
+        "', '" +
+        nickname +
+        "', '" +
+        phoneNumber +
+        "')";
 
-    // async function addPlayer(user) {
-    //   // post the user to /add-player
-    //   // if successful, redirect to /residents
-    //   // if not, show error message
-    //   const response = await fetch("/add-player", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(user),
-    //   });
-    //   if (response.ok) {
-    //     window.location.href = "/residents";
-    //   } else {
-    //     alert("Error: " + response.status);
-    //   }
-    // }
+      mysqli.query(conn, sql);
+
+      //close connection
+      mysqli_close(conn);
+
+      var firstName = document.getElementById("first-name").value;
+      var lastName = document.getElementById("last-name").value;
+      var nickname = document.getElementById("nickname").value;
+      var phoneNumber = document.getElementById("phone-number").value;
+
+      var user = {
+        firstName: firstName,
+        lastName: lastName,
+        nickname: nickname,
+        phoneNumber: phoneNumber,
+      };
+
+      return user;
+    }
+
+    async function addPlayer(user) {
+      var host = "sql7.freemysqlhosting.net";
+      var user = "sql7587471";
+      var password = "Pskf2GAHbr";
+      var database = "sql7587471";
+
+      // post the user to /add-player
+      // if successful, redirect to /residents
+      // if not, show error message
+      var mysql = require("mysql");
+
+      var con = mysql.createConnection({
+        host:  "sql7.freemysqlhosting.net",
+        user:  "sql7587471",
+        password:"Pskf2GAHbr",
+        database: "sql7587471",
+      });
+
+      con.connect(function (err) {
+        if (err) throw err;
+        console.log("Connected!");
+      });
+
+      var sql =
+        "INSERT INTO sql7587471.players (first_name, last_name, nickname, phone_number) VALUES ('" +
+        firstName +
+        "', '" +
+        lastName +
+        "', '" +
+        "nickname" +
+        "', '" +
+        "phoneNumber" +
+        "')";
+
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+      });
+
+      con.end();
+
+      
+      
+    }
+
+      //function called submit that calls the createUser function and submits the form to the server /add-player
+      function submit(e) {
+        e.preventDefault();
+        var user = createUser();
+        console.log(user);
+      }
+
+      // function sendTextMessage() {
+      //   var phoneNumber = document.getElementById("phone-number").value;
+      //   var message = "Hello World";
+      //   window.open(url, "_blank").focus();
+      // }
+
+      function createUser() {
+        var firstName = document.getElementById("first-name").value;
+        var lastName = document.getElementById("last-name").value;
+        var nickname = document.getElementById("nickname").value;
+        var phoneNumber = document.getElementById("phone-number").value;
+
+        var user = {
+          firstName: firstName,
+          lastName: lastName,
+          nickname: nickname,
+          phoneNumber: phoneNumber,
+        };
+
+        return user;
+      }
+    
   </script>
 </html>
+
