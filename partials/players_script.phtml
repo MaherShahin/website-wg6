@@ -1,0 +1,39 @@
+<script>
+  // Connect to the database
+
+  const mysql = fetch("mysql2");
+  const connection = mysql.createConnection({
+    host: "sql7.freemysqlhosting.net",
+    user: "sql7587471",
+    password: "Pskf2GAHbr",
+    database: "sql7587471",
+  });
+  // Make a GET request to the /players endpoint
+  async function getPlayers() {
+    try {
+      // Execute a SELECT statement
+      const [rows] = await connection.execute(
+        "SELECT * FROM sql7587471.players"
+      );
+      return rows;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+  // use the getPlayers function to get the players
+  getPlayers().then((players) => {
+    // create a table row for each player
+    players.forEach((player) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+  <td>${player.id}</td>
+  <td>${player.first_name}</td>
+  <td>${player.last_name}</td>
+  <td>${player.nickname}</td>
+  <td>${player.phone_number}</td>
+  <td>${player.team}</td>
+`;
+      document.querySelector("#players-table tbody").appendChild(row);
+    });
+  });
+</script>
