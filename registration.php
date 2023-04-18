@@ -30,6 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 mysqli_close($conn);
 
 // redirect to the index page
-header('Location: index.html');
+echo "Form submitted successfully!";
 exit;
 ?>
